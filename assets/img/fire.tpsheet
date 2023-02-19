@@ -1,0 +1,108 @@
+{
+	"textures": [
+		{
+			"image": "fire.png",
+			"size": {
+				"w": 1225,
+				"h": 1114
+			},
+			"sprites": [
+				{
+					"filename": "Explosion_5",
+					"region": {
+						"x": 10,
+						"y": 10,
+						"w": 393,
+						"h": 353
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "Explosion_3",
+					"region": {
+						"x": 423,
+						"y": 10,
+						"w": 393,
+						"h": 341
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "Explosion_1",
+					"region": {
+						"x": 836,
+						"y": 10,
+						"w": 379,
+						"h": 350
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "Explosion_2",
+					"region": {
+						"x": 423,
+						"y": 371,
+						"w": 371,
+						"h": 392
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "Explosion_6",
+					"region": {
+						"x": 10,
+						"y": 383,
+						"w": 366,
+						"h": 331
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				},
+				{
+					"filename": "Explosion_4",
+					"region": {
+						"x": 10,
+						"y": 734,
+						"w": 358,
+						"h": 370
+					},
+					"margin": {
+						"x": 0,
+						"y": 0,
+						"w": 0,
+						"h": 0
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "http://free-tex-packer.com",
+		"version": "0.6.7",
+		"format": "RGBA8888",
+	}
+}

@@ -1,0 +1,228 @@
+[gd_scene load_steps=23 format=2]
+
+[ext_resource path="res://ai/actions/FillDecksAction.gd" type="Script" id=1]
+[ext_resource path="res://addons/beehave/nodes/composites/sequence.gd" type="Script" id=2]
+[ext_resource path="res://ai/actions/MapGenerationAction.gd" type="Script" id=3]
+[ext_resource path="res://ai/conditions/IsGameStateCondition.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/beehave/nodes/decorators/inverter.gd" type="Script" id=5]
+[ext_resource path="res://ai/actions/HighlightZone.tscn" type="PackedScene" id=6]
+[ext_resource path="res://addons/beehave/nodes/composites/selector_star.gd" type="Script" id=7]
+[ext_resource path="res://ai/actions/PlaceChip.tscn" type="PackedScene" id=8]
+[ext_resource path="res://ai/conditions/isZonesHighlithed.gd" type="Script" id=9]
+[ext_resource path="res://addons/beehave/nodes/composites/sequence_star.gd" type="Script" id=10]
+[ext_resource path="res://ai/actions/ResetHighlight.tscn" type="PackedScene" id=11]
+[ext_resource path="res://ai/conditions/IsMarkedCellClicked.tscn" type="PackedScene" id=12]
+[ext_resource path="res://ai/actions/ResetExcludedZonesAction.tscn" type="PackedScene" id=13]
+[ext_resource path="res://ai/conditions/IsPlacedMaxChipsCondition.tscn" type="PackedScene" id=14]
+[ext_resource path="res://ai/actions/UpdateGameStateAction.tscn" type="PackedScene" id=15]
+[ext_resource path="res://addons/beehave/nodes/beehave_root.gd" type="Script" id=16]
+[ext_resource path="res://ai/actions/ShowCardsAction.tscn" type="PackedScene" id=17]
+[ext_resource path="res://ai/conditions/IsCardClickedCondition.tscn" type="PackedScene" id=18]
+[ext_resource path="res://ai/actions/HidePlayerHandAction.gd" type="Script" id=19]
+[ext_resource path="res://ai/conditions/IsCardSelectedCondition.gd" type="Script" id=20]
+[ext_resource path="res://ai/conditions/IsCardsEquelCondition.gd" type="Script" id=21]
+[ext_resource path="res://addons/beehave/nodes/composites/selector.gd" type="Script" id=22]
+
+[node name="GameAI" type="Node"]
+script = ExtResource( 16 )
+
+[node name="SelectorStarComposite" type="Node" parent="."]
+script = ExtResource( 7 )
+
+[node name="MapPreparation" type="Node" parent="SelectorStarComposite"]
+script = ExtResource( 2 )
+
+[node name="IsGameStateCondition" parent="SelectorStarComposite/MapPreparation" instance=ExtResource( 4 )]
+
+[node name="MapGeneration" type="Node" parent="SelectorStarComposite/MapPreparation"]
+script = ExtResource( 3 )
+
+[node name="UpdateGameStateAction" parent="SelectorStarComposite/MapPreparation" instance=ExtResource( 15 )]
+next_state = 4
+
+[node name="PlaceTRexChip" type="Node" parent="SelectorStarComposite"]
+script = ExtResource( 2 )
+
+[node name="IsGameStateCondition" parent="SelectorStarComposite/PlaceTRexChip" instance=ExtResource( 4 )]
+check_state = 1
+
+[node name="ChipsLimitNotReached" type="Node" parent="SelectorStarComposite/PlaceTRexChip"]
+script = ExtResource( 5 )
+
+[node name="IsPlacedMaxChipsCondition" parent="SelectorStarComposite/PlaceTRexChip/ChipsLimitNotReached" instance=ExtResource( 14 )]
+
+[node name="AwaitClick" type="Node" parent="SelectorStarComposite/PlaceTRexChip"]
+script = ExtResource( 10 )
+
+[node name="NoHighlite" type="Node" parent="SelectorStarComposite/PlaceTRexChip/AwaitClick"]
+script = ExtResource( 5 )
+
+[node name="isZonesHighlithed" type="Node" parent="SelectorStarComposite/PlaceTRexChip/AwaitClick/NoHighlite"]
+script = ExtResource( 9 )
+
+[node name="HighlightZone" parent="SelectorStarComposite/PlaceTRexChip/AwaitClick" instance=ExtResource( 6 )]
+
+[node name="IsMarkedCellClicked" parent="SelectorStarComposite/PlaceTRexChip/AwaitClick" instance=ExtResource( 12 )]
+
+[node name="PlaceChip" parent="SelectorStarComposite/PlaceTRexChip" instance=ExtResource( 8 )]
+
+[node name="ResetHighlight" parent="SelectorStarComposite/PlaceTRexChip" instance=ExtResource( 11 )]
+
+[node name="UpdateGameStateAction" parent="SelectorStarComposite/PlaceTRexChip" instance=ExtResource( 15 )]
+next_state = 2
+
+[node name="PlaceRaptors" type="Node" parent="SelectorStarComposite"]
+script = ExtResource( 2 )
+
+[node name="IsGameStateCondition" parent="SelectorStarComposite/PlaceRaptors" instance=ExtResource( 4 )]
+check_state = 2
+
+[node name="ChipsLimitNotReached" type="Node" parent="SelectorStarComposite/PlaceRaptors"]
+script = ExtResource( 5 )
+
+[node name="IsPlacedMaxChipsCondition" parent="SelectorStarComposite/PlaceRaptors/ChipsLimitNotReached" instance=ExtResource( 14 )]
+chip_type = 1
+limit = 5
+
+[node name="AwaitClick" type="Node" parent="SelectorStarComposite/PlaceRaptors"]
+script = ExtResource( 10 )
+
+[node name="NoHighlite" type="Node" parent="SelectorStarComposite/PlaceRaptors/AwaitClick"]
+script = ExtResource( 5 )
+
+[node name="isZonesHighlithed" type="Node" parent="SelectorStarComposite/PlaceRaptors/AwaitClick/NoHighlite"]
+script = ExtResource( 9 )
+
+[node name="HighlightZone" parent="SelectorStarComposite/PlaceRaptors/AwaitClick" instance=ExtResource( 6 )]
+place_zone = 1
+
+[node name="IsMarkedCellClicked" parent="SelectorStarComposite/PlaceRaptors/AwaitClick" instance=ExtResource( 12 )]
+
+[node name="PlaceChip" parent="SelectorStarComposite/PlaceRaptors" instance=ExtResource( 8 )]
+chip_type = 1
+
+[node name="ResetHighlight" parent="SelectorStarComposite/PlaceRaptors" instance=ExtResource( 11 )]
+
+[node name="IsPlacedMaxChipsCondition" parent="SelectorStarComposite/PlaceRaptors" instance=ExtResource( 14 )]
+chip_type = 1
+limit = 5
+
+[node name="ResetExcludedZonesAction" parent="SelectorStarComposite/PlaceRaptors" instance=ExtResource( 13 )]
+
+[node name="UpdateGameStateAction" parent="SelectorStarComposite/PlaceRaptors" instance=ExtResource( 15 )]
+next_state = 3
+
+[node name="PlaceHunters" type="Node" parent="SelectorStarComposite"]
+script = ExtResource( 2 )
+
+[node name="IsGameStateCondition" parent="SelectorStarComposite/PlaceHunters" instance=ExtResource( 4 )]
+check_state = 3
+
+[node name="ChipsLimitNotReached" type="Node" parent="SelectorStarComposite/PlaceHunters"]
+script = ExtResource( 5 )
+
+[node name="IsPlacedMaxChipsCondition" parent="SelectorStarComposite/PlaceHunters/ChipsLimitNotReached" instance=ExtResource( 14 )]
+chip_type = 2
+limit = 4
+
+[node name="AwaitClick" type="Node" parent="SelectorStarComposite/PlaceHunters"]
+script = ExtResource( 10 )
+
+[node name="NoHighlite" type="Node" parent="SelectorStarComposite/PlaceHunters/AwaitClick"]
+script = ExtResource( 5 )
+
+[node name="isZonesHighlithed" type="Node" parent="SelectorStarComposite/PlaceHunters/AwaitClick/NoHighlite"]
+script = ExtResource( 9 )
+
+[node name="HighlightZone" parent="SelectorStarComposite/PlaceHunters/AwaitClick" instance=ExtResource( 6 )]
+place_zone = 2
+
+[node name="IsMarkedCellClicked" parent="SelectorStarComposite/PlaceHunters/AwaitClick" instance=ExtResource( 12 )]
+
+[node name="PlaceChip" parent="SelectorStarComposite/PlaceHunters" instance=ExtResource( 8 )]
+chip_type = 2
+
+[node name="ResetHighlight" parent="SelectorStarComposite/PlaceHunters" instance=ExtResource( 11 )]
+
+[node name="IsPlacedMaxChipsCondition" parent="SelectorStarComposite/PlaceHunters" instance=ExtResource( 14 )]
+chip_type = 2
+limit = 4
+
+[node name="ResetExcludedZonesAction" parent="SelectorStarComposite/PlaceHunters" instance=ExtResource( 13 )]
+
+[node name="UpdateGameStateAction" parent="SelectorStarComposite/PlaceHunters" instance=ExtResource( 15 )]
+next_state = 4
+
+[node name="DeckPreparation" type="Node" parent="SelectorStarComposite"]
+script = ExtResource( 2 )
+
+[node name="IsGameStateCondition" parent="SelectorStarComposite/DeckPreparation" instance=ExtResource( 4 )]
+check_state = 4
+
+[node name="FillDecksAction" type="Node" parent="SelectorStarComposite/DeckPreparation"]
+script = ExtResource( 1 )
+
+[node name="UpdateGameStateAction" parent="SelectorStarComposite/DeckPreparation" instance=ExtResource( 15 )]
+next_state = 5
+
+[node name="SelectCards" type="Node" parent="SelectorStarComposite"]
+script = ExtResource( 10 )
+
+[node name="IsGameStateCondition" parent="SelectorStarComposite/SelectCards" instance=ExtResource( 4 )]
+check_state = 5
+
+[node name="SelectCards" type="Node" parent="SelectorStarComposite/SelectCards"]
+script = ExtResource( 10 )
+
+[node name="CardNotSelected" type="Node" parent="SelectorStarComposite/SelectCards/SelectCards"]
+script = ExtResource( 5 )
+
+[node name="IsCardSelectedCondition" type="Node" parent="SelectorStarComposite/SelectCards/SelectCards/CardNotSelected"]
+script = ExtResource( 20 )
+
+[node name="ShowCardsForRaptorAction" parent="SelectorStarComposite/SelectCards/SelectCards" instance=ExtResource( 17 )]
+
+[node name="IsCardClickedCondition" parent="SelectorStarComposite/SelectCards/SelectCards" instance=ExtResource( 18 )]
+
+[node name="SelectCards2" type="Node" parent="SelectorStarComposite/SelectCards"]
+script = ExtResource( 10 )
+
+[node name="CardNotSelected" type="Node" parent="SelectorStarComposite/SelectCards/SelectCards2"]
+script = ExtResource( 5 )
+
+[node name="IsCardSelectedCondition" type="Node" parent="SelectorStarComposite/SelectCards/SelectCards2/CardNotSelected"]
+script = ExtResource( 20 )
+play_side = 1
+
+[node name="ShowCardsForRaptorAction" parent="SelectorStarComposite/SelectCards/SelectCards2" instance=ExtResource( 17 )]
+list_type = 1
+
+[node name="IsCardClickedCondition" parent="SelectorStarComposite/SelectCards/SelectCards2" instance=ExtResource( 18 )]
+play_side = 1
+
+[node name="HidePlayerHandAction" type="Node" parent="SelectorStarComposite/SelectCards"]
+script = ExtResource( 19 )
+
+[node name="UpdateGameStateAction" parent="SelectorStarComposite/SelectCards" instance=ExtResource( 15 )]
+next_state = 6
+
+[node name="CompareCards" type="Node" parent="SelectorStarComposite"]
+script = ExtResource( 2 )
+
+[node name="IsGameStateCondition" parent="SelectorStarComposite/CompareCards" instance=ExtResource( 4 )]
+check_state = 6
+
+[node name="CompareCards" type="Node" parent="SelectorStarComposite/CompareCards"]
+script = ExtResource( 22 )
+
+[node name="IsCardsValuesEquel" type="Node" parent="SelectorStarComposite/CompareCards/CompareCards"]
+script = ExtResource( 2 )
+
+[node name="IsCardsEquelCondition" type="Node" parent="SelectorStarComposite/CompareCards/CompareCards/IsCardsValuesEquel"]
+script = ExtResource( 21 )
+
+[node name="UpdateGameStateAction" parent="SelectorStarComposite/CompareCards/CompareCards/IsCardsValuesEquel" instance=ExtResource( 15 )]
+next_state = 5
+
+[node name="SequenceComposite" type="Node" parent="SelectorStarComposite/CompareCards/CompareCards"]
+script = ExtResource( 2 )

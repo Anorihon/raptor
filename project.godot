@@ -1,0 +1,217 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Leaf",
+"class": "ActionLeaf",
+"language": "GDScript",
+"path": "res://addons/beehave/nodes/leaves/action.gd"
+}, {
+"base": "Decorator",
+"class": "AlwaysFailDecorator",
+"language": "GDScript",
+"path": "res://addons/beehave/nodes/decorators/failer.gd"
+}, {
+"base": "Decorator",
+"class": "AlwaysSucceedDecorator",
+"language": "GDScript",
+"path": "res://addons/beehave/nodes/decorators/succeeder.gd"
+}, {
+"base": "BeehaveTree",
+"class": "BeehaveNode",
+"language": "GDScript",
+"path": "res://addons/beehave/nodes/beehave_node.gd"
+}, {
+"base": "BeehaveTree",
+"class": "BeehaveRoot",
+"language": "GDScript",
+"path": "res://addons/beehave/nodes/beehave_root.gd"
+}, {
+"base": "Node",
+"class": "BeehaveTree",
+"language": "GDScript",
+"path": "res://addons/beehave/nodes/beehave_tree.gd"
+}, {
+"base": "Reference",
+"class": "Blackboard",
+"language": "GDScript",
+"path": "res://addons/beehave/blackboard.gd"
+}, {
+"base": "Resource",
+"class": "CardData",
+"language": "GDScript",
+"path": "res://components/card/card_data.gd"
+}, {
+"base": "HBoxContainer",
+"class": "CardsList",
+"language": "GDScript",
+"path": "res://components/cards-list/CardsList.gd"
+}, {
+"base": "Area2D",
+"class": "Chip",
+"language": "GDScript",
+"path": "res://components/chip/chip.gd"
+}, {
+"base": "Node2D",
+"class": "Chips",
+"language": "GDScript",
+"path": "res://scripts/chips_manager.gd"
+}, {
+"base": "BeehaveNode",
+"class": "Composite",
+"language": "GDScript",
+"path": "res://addons/beehave/nodes/composites/composite.gd"
+}, {
+"base": "Leaf",
+"class": "ConditionLeaf",
+"language": "GDScript",
+"path": "res://addons/beehave/nodes/leaves/condition.gd"
+}, {
+"base": "Node",
+"class": "DeckManager",
+"language": "GDScript",
+"path": "res://scripts/deck_manager.gd"
+}, {
+"base": "BeehaveNode",
+"class": "Decorator",
+"language": "GDScript",
+"path": "res://addons/beehave/nodes/decorators/decorator.gd"
+}, {
+"base": "Node2D",
+"class": "Game",
+"language": "GDScript",
+"path": "res://scenes/game/Game.gd"
+}, {
+"base": "Decorator",
+"class": "InverterDecorator",
+"language": "GDScript",
+"path": "res://addons/beehave/nodes/decorators/inverter.gd"
+}, {
+"base": "BeehaveNode",
+"class": "Leaf",
+"language": "GDScript",
+"path": "res://addons/beehave/nodes/leaves/leaf.gd"
+}, {
+"base": "Decorator",
+"class": "LimiterDecorator",
+"language": "GDScript",
+"path": "res://addons/beehave/nodes/decorators/limiter.gd"
+}, {
+"base": "Node2D",
+"class": "Map",
+"language": "GDScript",
+"path": "res://components/map/Map.gd"
+}, {
+"base": "Node",
+"class": "PlaceManager",
+"language": "GDScript",
+"path": "res://scenes/game/PlaceManager.gd"
+}, {
+"base": "Node",
+"class": "Player",
+"language": "GDScript",
+"path": "res://components/player/Player.gd"
+}, {
+"base": "Composite",
+"class": "SelectorComposite",
+"language": "GDScript",
+"path": "res://addons/beehave/nodes/composites/selector.gd"
+}, {
+"base": "Composite",
+"class": "SelectorStarComposite",
+"language": "GDScript",
+"path": "res://addons/beehave/nodes/composites/selector_star.gd"
+}, {
+"base": "Composite",
+"class": "SequenceComposite",
+"language": "GDScript",
+"path": "res://addons/beehave/nodes/composites/sequence.gd"
+}, {
+"base": "Composite",
+"class": "SequenceStarComposite",
+"language": "GDScript",
+"path": "res://addons/beehave/nodes/composites/sequence_star.gd"
+} ]
+_global_script_class_icons={
+"ActionLeaf": "res://addons/beehave/icons/action.svg",
+"AlwaysFailDecorator": "res://addons/beehave/icons/fail.svg",
+"AlwaysSucceedDecorator": "res://addons/beehave/icons/succeed.svg",
+"BeehaveNode": "res://addons/beehave/icons/action.svg",
+"BeehaveRoot": "res://addons/beehave/icons/tree.svg",
+"BeehaveTree": "res://addons/beehave/icons/icon.png",
+"Blackboard": "",
+"CardData": "",
+"CardsList": "",
+"Chip": "",
+"Chips": "",
+"Composite": "res://addons/beehave/icons/category_composite.svg",
+"ConditionLeaf": "res://addons/beehave/icons/condition.svg",
+"DeckManager": "",
+"Decorator": "res://addons/beehave/icons/category_decorator.svg",
+"Game": "",
+"InverterDecorator": "res://addons/beehave/icons/inverter.svg",
+"Leaf": "res://addons/beehave/icons/action.svg",
+"LimiterDecorator": "res://addons/beehave/icons/limiter.svg",
+"Map": "",
+"PlaceManager": "",
+"Player": "",
+"SelectorComposite": "res://addons/beehave/icons/selector.svg",
+"SelectorStarComposite": "res://addons/beehave/icons/selector_star.svg",
+"SequenceComposite": "res://addons/beehave/icons/sequencer.svg",
+"SequenceStarComposite": "res://addons/beehave/icons/sequencer_star.svg"
+}
+
+[application]
+
+config/name="Raptor"
+run/main_scene="res://scenes/game/Game.tscn"
+boot_splash/bg_color=Color( 0.141176, 0.141176, 0.141176, 1 )
+config/icon="res://icon.png"
+
+[autoload]
+
+Global="*res://scripts/singletons/Global.gd"
+Server="*res://scripts/singletons/Server.gd"
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/size/test_width=1280
+window/size/test_height=980
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/MaxSizeContainer/plugin.cfg", "res://addons/beehave/plugin.cfg" )
+
+[global]
+
+color=false
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+
+[locale]
+
+translations=PoolStringArray( "res://assets/translations.en.translation", "res://assets/translations.ru.translation" )
+locale_filter=[ 1, [ "en", "ru" ] ]
+translation_remaps={
+}
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"

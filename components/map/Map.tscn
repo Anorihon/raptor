@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://components/map/objects-tiles.tres" type="TileSet" id=1]
+[ext_resource path="res://components/map/main-tiles.tres" type="TileSet" id=2]
+[ext_resource path="res://components/map/Map.gd" type="Script" id=3]
+[ext_resource path="res://scripts/chips_manager.gd" type="Script" id=4]
+
+[node name="Map" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="grid" type="TileMap" parent="."]
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 128, 128 )
+format = 1
+
+[node name="objects" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 128, 128 )
+format = 1
+
+[node name="ChipsManager" type="Node2D" parent="objects"]
+script = ExtResource( 4 )

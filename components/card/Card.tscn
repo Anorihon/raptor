@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/img/cards/raptors/tile000.png" type="Texture" id=1]
+[ext_resource path="res://components/card/сard.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/Roboto/Roboto-Regular.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 3 )
+
+[node name="Card" type="TextureButton"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -98.5
+margin_top = -308.0
+margin_right = 98.5
+grow_horizontal = 0
+grow_vertical = 0
+rect_min_size = Vector2( 197, 308 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture_normal = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+script = ExtResource( 2 )
+
+[node name="DescBox" type="MarginContainer" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 79.0
+mouse_filter = 1
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect" type="ColorRect" parent="DescBox"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 187.0
+margin_bottom = 219.0
+mouse_filter = 1
+color = Color( 0, 0, 0, 0.780392 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="DescBox/ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+scroll_horizontal_enabled = false
+
+[node name="Label" type="Label" parent="DescBox/ColorRect/ScrollContainer"]
+margin_right = 177.0
+margin_bottom = 209.0
+rect_min_size = Vector2( 177, 209 )
+mouse_filter = 1
+custom_fonts/font = SubResource( 1 )
+autowrap = true
+
+[node name="Border" type="ReferenceRect" parent="."]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+border_color = Color( 0, 0.321569, 1, 1 )
+border_width = 6.0
+editor_only = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Tween" type="Tween" parent="."]
